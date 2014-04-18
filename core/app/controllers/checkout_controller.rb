@@ -87,6 +87,9 @@ class CheckoutController < Spree::BaseController
 
   def before_payment
     current_order.payments.destroy_all if request.put?
+    if @order.ship_address.country_id != 214 && @order.adjustments.shipping.empty?
+      redirect_to cart_path
+    end
   end
 
   def after_complete
