@@ -9,7 +9,7 @@ module Spree
       return unless mail_method = MailMethod.current
       message.from ||= mail_method.preferred_mails_from
 
-      if mail_method.preferred_intercept_email.present? && !message.to.match("do-not-intercept")
+      if mail_method.preferred_intercept_email.present? && !message.to.to_s.match("do-not-intercept")
         message.subject = "[#{message.to}] #{message.subject}"
         message.to = mail_method.preferred_intercept_email
       end
