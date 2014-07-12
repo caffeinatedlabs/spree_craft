@@ -79,47 +79,6 @@ class Order < ActiveRecord::Base
     line_items.map(&:quantity).sum
   end
 
-  # order state machine (see http://github.com/pluginaweek/state_machine/tree/master for details)
-  state_machine :initial => 'cart', :use_transactions => false do
-
-    event :next do
-      transition :to => 'delivery', :if => :delivery_required_and_not_adjusted?
-      transition :from => 'cart',     :to => 'address'
-      transition :from => 'address',  :to => 'delivery', :if => :delivery_required?
-      transition :from => 'address',  :to => 'payment'
-      transition :from => 'delivery', :to => 'payment'
-      transition :from => 'payment',  :to => 'complete'
-    end
-
-    event :cancel do
-      transition :to => 'canceled', :if => :allow_cancel?
-    end
-    event :return do
-      transition :to => 'returned', :from => 'awaiting_return'
-    end
-    event :resume do
-      transition :to => 'resumed', :from => 'canceled', :if => :allow_resume?
-    end
-    event :authorize_return do
-      transition :to => 'awaiting_return'
-    end
-
-    before_transition :to => 'complete' do |order|
-      begin
-        order.process_payments!
-      rescue Spree::GatewayError => ex
-        order.errors.add(:base, ex.message)
-        throw :halt
-      end
-    end
-
-    after_transition :to => 'complete', :do => :finalize!
-    after_transition :to => 'delivery', :do => :create_tax_charge!
-    after_transition :to => 'payment', :do => :create_shipment!
-    after_transition :to => 'canceled', :do => :after_cancel
-
-  end
-
   # Indicates whether there are any backordered InventoryUnits associated with the Order.
   def backordered?
     return false unless Spree::Config[:track_inventory_levels]
@@ -170,14 +129,6 @@ class Order < ActiveRecord::Base
       #shipment.ready!
     end
 
-  end
-
-  def delivery_required?
-    false
-  end
-
-  def delivery_required_and_not_adjusted?
-    state != 'delivery' && delivery_required? && !adjustments.shipping.any?
   end
 
   before_validation :clone_billing_address, :if => "@use_billing"
