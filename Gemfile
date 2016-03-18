@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.7'
 
 gem 'json'
 gem 'sqlite3'
