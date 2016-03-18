@@ -1,6 +1,9 @@
 ## Customize the test machine
 machine:
 
+  ruby:
+    version: 2.1.7
+
   timezone:
     America/New_York # Set the timezeone
 
