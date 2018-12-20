@@ -40,5 +40,6 @@
       $('p#scountry select').change(function() { update_state('s'); });
       update_state('b');
       update_state('s');
+    }
   });
 })(jQuery);
