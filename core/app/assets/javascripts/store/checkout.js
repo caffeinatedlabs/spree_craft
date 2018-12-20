@@ -40,38 +40,5 @@
       $('p#scountry select').change(function() { update_state('s'); });
       update_state('b');
       update_state('s');
-
-      $('input#order_use_billing').click(function() {
-        if($(this).is(':checked')) {
-          $('#shipping .inner').hide();
-          $('#shipping .inner input, #shipping .inner select').prop("disabled", true);
-        } else {
-          $('#shipping .inner').show();
-          $('#shipping .inner input, #shipping .inner select').prop("disabled", false);
-          //only want to enable relevant field
-          if(get_states('s')){
-            $('span#sstate input').hide().prop("disabled", true);
-          }else{
-            $('span#sstate select').hide().prop("disabled", true);
-          }
-
-        }
-      }).triggerHandler('click');
-
-    }
-
-    if($('#checkout_form_payment').is('*')){
-      // Show fields for the selected payment method
-      $("input[type='radio'][name='order[payments_attributes][][payment_method_id]']").click(function(){
-        $('#payment-methods li').hide();
-        if(this.checked){ $('#payment_method_'+this.value).show(); }
-      }).triggerHandler('click');
-    }
   });
 })(jQuery);
-
-function disableSaveOnClick() {
-  $('form.edit_spree_order').submit(function() {
-    $(this).find(':submit, :image').attr('disabled', true).removeClass('primary').addClass('disabled');
-  });
-}
