@@ -22,7 +22,7 @@ class Admin::OrdersController < Admin::BaseController
       params[:search][:completed_at_lt] = params[:search].delete(:created_at_lt)
     end
 
-    @search = Order.ransack(params[:search])
+    @search = Order.ransack(params[:search], search_key: :search)
     @search.sorts = @show_only_completed ? 'completed_ata desc' : 'created_at desc' if @search.sorts.empty?
     @orders = @search.result.includes([:user, :shipments, :payments]).page(params[:page]).per(Spree::Config[:orders_per_page])
   end

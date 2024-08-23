@@ -83,7 +83,7 @@ class Admin::ProductsController < Admin::ResourceController
         params[:search][:deleted_at_null] = "1"
       end
 
-      @search = super.ransack(params[:search])
+      @search = super.ransack(params[:search], search_key: :search)
       @search.sorts = 'name asc' if @search.sorts.empty?
 
       @collection = @search.result.group_by_products_id.includes({:variants => [:images, :option_values]}).page(params[:page]).per(Spree::Config[:admin_products_per_page])

@@ -8,7 +8,7 @@ class Admin::ZonesController < Admin::ResourceController
   protected
 
   def collection
-    @search = super.ransack(params[:search])
+    @search = super.ransack(params[:search], search_key: :search)
     @search.sorts = 'name asc' if @search.sorts.empty?
     @zones = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
   end

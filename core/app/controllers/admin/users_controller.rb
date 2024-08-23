@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::ResourceController
   def collection
     return @collection if @collection.present?
     unless request.xhr?
-      @search = User.registered.ransack(params[:search])
+      @search = User.registered.ransack(params[:search], search_key: :search)
       @collection = @search.result.page(params[:page]).per(Spree::Config[:admin_products_per_page])
     else
       #disabling proper nested include here due to rails 3.1 bug
