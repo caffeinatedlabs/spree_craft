@@ -18,10 +18,9 @@ class Admin::ProductGroupsController < Admin::ResourceController
     end
 
     def collection
-      params[:search] ||= {}
-      params[:search][:meta_sort] ||= "name.asc"
-      @search = super.metasearch(params[:search])
-      @collection = @search.relation.page(params[:page]).per(Spree::Config[:per_page])
+      @search = super.ransack(params[:search])
+      @search.sorts = 'name asc' if @search.sorts.empty?
+      @collection = @search.result.page(params[:page]).per(Spree::Config[:per_page])
     end
     
   private

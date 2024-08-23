@@ -8,10 +8,9 @@ class Admin::ZonesController < Admin::ResourceController
   protected
 
   def collection
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= "ascend_by_name"
-    @search = super.metasearch(params[:search])
-    @zones = @search.relation.page(params[:page]).per(Spree::Config[:orders_per_page])
+    @search = super.ransack(params[:search])
+    @search.sorts = 'name asc' if @search.sorts.empty?
+    @zones = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
   end
 
   def load_data

@@ -112,7 +112,6 @@ class Product < ActiveRecord::Base
     scope :group_by_products_id, { :group => "#{Product.table_name}.id" }
   end
   search_scopes << :group_by_products_id
-  search_methods :group_by_products_id
 
   add_search_scope :id_equals do |input_id|
     where("products.id = ?", input_id)

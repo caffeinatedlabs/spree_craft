@@ -23,8 +23,7 @@
 # product scopes. So you can do counting, calculations etc, on resulted set of products,
 # without retriving all records.
 #
-# ProductGroup operates on named scopes defined for product in Scopes::Product,
-# or generated automatically by meta_search
+# ProductGroup operates on named scopes defined for product in Scopes::Product
 #
 class ProductGroup < ActiveRecord::Base
   validates :name, :presence => true # TODO ensure that this field is defined as not_null

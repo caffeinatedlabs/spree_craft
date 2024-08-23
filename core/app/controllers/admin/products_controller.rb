@@ -78,15 +78,15 @@ class Admin::ProductsController < Admin::ResourceController
 
     unless request.xhr?
       params[:search] ||= {}
-      # Note: the MetaSearch scopes are on/off switches, so we need to select "not_deleted" explicitly if the switch is off
-      if params[:search][:deleted_at_is_null].nil?
-        params[:search][:deleted_at_is_null] = "1"
+      # Note: the scopes are on/off switches, so we need to select "not_deleted" explicitly if the switch is off
+      if params[:search][:deleted_at_null].nil?
+        params[:search][:deleted_at_null] = "1"
       end
 
-      params[:search][:meta_sort] ||= "name.asc"
-      @search = super.metasearch(params[:search])
+      @search = super.ransack(params[:search])
+      @search.sorts = 'name asc' if @search.sorts.empty?
 
-      @collection = @search.relation.group_by_products_id.includes({:variants => [:images, :option_values]}).page(params[:page]).per(Spree::Config[:admin_products_per_page])
+      @collection = @search.result.group_by_products_id.includes({:variants => [:images, :option_values]}).page(params[:page]).per(Spree::Config[:admin_products_per_page])
     else
       includes = [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images]
 
