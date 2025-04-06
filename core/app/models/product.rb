@@ -69,8 +69,6 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :product_properties, :allow_destroy => true, :reject_if => lambda { |pp| pp[:property_name].blank? }
 
-  make_permalink
-
   alias :options :product_option_types
 
   cattr_accessor :search_scopes do

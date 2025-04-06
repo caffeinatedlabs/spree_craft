@@ -18,8 +18,6 @@ class Shipment < ActiveRecord::Base
   validates :inventory_units, :presence => true, :if => :require_inventory
   validates :shipping_method, :presence => true
 
-  make_permalink :field => :number
-
   scope :shipped, where(:state => 'shipped')
   scope :ready, where(:state => 'ready')
   scope :pending, where(:state => 'pending')

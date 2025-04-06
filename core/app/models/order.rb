@@ -44,8 +44,6 @@ class Order < ActiveRecord::Base
   scope :complete, where("orders.completed_at IS NOT NULL")
   scope :incomplete, where("orders.completed_at IS NULL")
 
-  make_permalink :field => :number
-
   class_attribute :update_hooks
   self.update_hooks = Set.new
 

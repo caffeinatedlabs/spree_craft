@@ -30,39 +30,6 @@ describe Product do
     end
   end
 
-  context "validations" do
-    context "find_by_param" do
-
-      context "permalink should be incremented until the value is not taken" do
-        before do
-          @product1 = FactoryGirl.create(:product, :name => 'foo')
-          @product2 = FactoryGirl.create(:product, :name => 'foo')
-          @product3 = FactoryGirl.create(:product, :name => 'foo')
-        end
-        it "should have valid permalink" do
-          @product1.permalink.should == 'foo'
-          @product2.permalink.should == 'foo-1'
-          @product3.permalink.should == 'foo-2'
-        end
-      end
-
-      context "make_permalink should declare validates_uniqueness_of" do
-        before do
-          @product1 = FactoryGirl.create(:product, :name => 'foo')
-          @product2 = FactoryGirl.create(:product, :name => 'foo')
-          @product2.update_attributes(:permalink => 'foo')
-        end
-        it "should have an error" do
-          @product2.errors.size.should == 1
-        end
-        it "should have error message that permalink is already taken" do
-          @product2.errors.full_messages.first.should == 'Permalink has already been taken'
-        end
-      end
-
-    end
-  end
-
   context "scopes" do
     context ".master_price_lte" do
       it 'produces correct sql' do
