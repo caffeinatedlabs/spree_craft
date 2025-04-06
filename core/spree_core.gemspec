@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip', '= 2.5.0'
   s.add_dependency 'rd_resource_controller'
   s.add_dependency 'ransack', '>= 1.8.10'
-  s.add_dependency 'activemerchant', '= 1.17.0'
+  s.add_dependency 'activemerchant', '>= 1.17.0'
   s.add_dependency 'rails', '>= 3.2.13'
   s.add_dependency 'kaminari', '>= 0.12.4'
   s.add_dependency "bartt-ssl_requirement", "~> 1.4.2"
