@@ -10,29 +10,28 @@ module Spree
         options = args.extract_options!
         options.assert_valid_keys(:default)
 
-        @type = args.first ? args.first.to_s : 'boolean'
-
-        # Create a column that will be responsible for typecasting
-        @column = ActiveRecord::ConnectionAdapters::Column.new(name.to_s, options[:default], @type == 'any' ? nil : @type)
+        @name = name.to_s
+        @type = args.first ? args.first.to_s.camelize : 'Boolean'
+        @default = options[:default]
       end
 
       # The attribute which is being preferenced
       def name
-        @column.name
+        @name
       end
 
       # The default value to use for the preference in case none have been
       # previously defined
       def default_value
-        @column.default
+        @default
       end
 
       # Typecasts the value based on the type of preference that was defined
       def type_cast(value)
-        if @type == 'any'
+        if @type == 'Any'
           value
         else
-          @column.type_cast(value)
+          ActiveRecord::Type.const_get(@type).new.send :cast_value, value
         end
       end
 
@@ -41,7 +40,7 @@ module Spree
         unless value = type_cast(value)
           false
         else
-          if @column.number?
+          if value.is_a?(Numeric)
             !value.zero?
           else
             !value.blank?
