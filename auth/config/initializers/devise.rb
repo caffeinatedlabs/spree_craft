@@ -97,10 +97,6 @@ Devise.setup do |config|
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
   # config.unlock_in = 1.hour
 
-  # ==> Configuration for :token_authenticatable
-  # Defines name of the authentication token params key
-  config.token_authentication_key = :auth_token
-
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
@@ -137,4 +133,23 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+end
+
+Devise::TokenAuthenticatable.setup do |config|
+  # enables the expiration of a token after a specified amount of time,
+  # requires an additional field on the model: `authentication_token_created_at`
+  # defaults to nil
+  # config.token_expires_in = 1.day
+
+  # set the authentication key name used by this module,
+  # defaults to :auth_token
+  config.token_authentication_key = :auth_token
+
+  # enable reset of the authentication token before the model is saved,
+  # defaults to false
+  # config.should_reset_authentication_token = true
+
+  # enables the setting of the authentication token - if not already - before the model is saved,
+  # defaults to false
+  # config.should_ensure_authentication_token = true
 end
