@@ -18,9 +18,9 @@ class Shipment < ActiveRecord::Base
   validates :inventory_units, :presence => true, :if => :require_inventory
   validates :shipping_method, :presence => true
 
-  scope :shipped, where(:state => 'shipped')
-  scope :ready, where(:state => 'ready')
-  scope :pending, where(:state => 'pending')
+  scope :shipped, -> { where(:state => 'shipped') }
+  scope :ready, -> { where(:state => 'ready') }
+  scope :pending, -> { where(:state => 'pending') }
 
   def to_param
     self.number if self.number
