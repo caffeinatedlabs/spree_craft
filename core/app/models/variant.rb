@@ -17,8 +17,8 @@ class Variant < ActiveRecord::Base
 
   include ::Scopes::Variant
   # default variant scope only lists non-deleted variants
-  scope :active, where("variants.deleted_at is null")
-  scope :deleted, where("not variants.deleted_at is null")
+  scope :active, -> { where("variants.deleted_at is null") }
+  scope :deleted, -> { where("not variants.deleted_at is null") }
 
   # default extra fields for shipping purposes
   @fields = [ {:name => 'Weight', :only => [:variant], :format => "%.2f"},

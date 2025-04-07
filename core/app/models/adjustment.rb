@@ -30,8 +30,8 @@ class Adjustment < ActiveRecord::Base
 
   scope :tax, lambda { where(:originator_type => "TaxRate") }
   scope :shipping, lambda { where(:label => I18n.t(:shipping)) }
-  scope :optional, where(:mandatory => false)
-  scope :eligible, where(:eligible => true)
+  scope :optional, -> { where(:mandatory => false) }
+  scope :eligible, -> { where(:eligible => true) }
 
   after_save { order.update! }
   after_destroy { order.update! }

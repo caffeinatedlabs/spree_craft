@@ -28,7 +28,7 @@ class Order < ActiveRecord::Base
   after_create :create_tax_charge!
 
   # TODO: validate the format of the email as well (but we can't rely on authlogic anymore to help with validation)
-  validates :email, :presence => true, :format => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i, :if => :require_email
+  validates :email, :presence => true, :format => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i, :if => :require_email
   validate :has_available_shipment
   #validate :has_shipping_method, :if => :delivery_required?
 
@@ -41,8 +41,8 @@ class Order < ActiveRecord::Base
   scope :between, lambda {|*dates| where("orders.created_at between ? and ?", dates.first.to_date, dates.last.to_date)}
   scope :by_customer, lambda {|customer| joins(:user).where("users.email =?", customer)}
   scope :by_state, lambda {|state| where("state = ?", state)}
-  scope :complete, where("orders.completed_at IS NOT NULL")
-  scope :incomplete, where("orders.completed_at IS NULL")
+  scope :complete, -> { where("orders.completed_at IS NOT NULL") }
+  scope :incomplete, -> { where("orders.completed_at IS NULL") }
 
   class_attribute :update_hooks
   self.update_hooks = Set.new

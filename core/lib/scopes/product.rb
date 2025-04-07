@@ -47,7 +47,7 @@ module Scopes::Product
     order_text = "products.#{r[2]} "
     order_text << ((r[1] == 'ascend') ?  "asc" : "desc")
 
-    Product.send(:scope, name.to_s, Product.send(:relation).order(order_text) )
+    Product.send(:scope, name.to_s, -> { Product.send(:relation).order(order_text) } )
     Product.search_scopes << name.intern
   end
 
