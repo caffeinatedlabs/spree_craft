@@ -21,12 +21,12 @@ describe Admin::OrdersController do
     after(:each) { user.roles = [] }
     it "should grant access to users with an admin role" do
       #user.stub :has_role? => true
-      user.roles = [Role.find_or_create_by_name('admin')]
+      user.roles = [Role.find_or_create_by(name:'admin')]
       post :index, :format => "html"
       response.should render_template :index
     end
     it "should grant access to users with an bar role" do
-      user.roles = [Role.find_or_create_by_name('bar')]
+      user.roles = [Role.find_or_create_by(name:'bar')]
       Ability.register_ability(BarAbility)
       post :index
       response.should render_template :index
@@ -35,7 +35,7 @@ describe Admin::OrdersController do
       order.stub(:update_attributes).and_return true
       order.stub(:user).and_return User.new
       order.stub(:token).and_return nil
-      user.roles = [Role.find_or_create_by_name('bar')]
+      user.roles = [Role.find_or_create_by(name:'bar')]
       Ability.register_ability(BarAbility)
       post :update, {:id => 'R123'}
       response.should render_template "shared/unauthorized"

@@ -14,7 +14,7 @@ module Spree
       class << self
         def instance
           return nil unless ActiveRecord::Base.connection.tables.include?('configurations')
-          SpreeAuthConfiguration.find_or_create_by_name("Default spree_auth configuration")
+          SpreeAuthConfiguration.find_or_create_by(name:"Default spree_auth configuration")
         end
       end
     end

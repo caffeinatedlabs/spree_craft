@@ -29,7 +29,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
-@configuration ||= AppConfiguration.find_or_create_by_name("Default configuration")
+@configuration ||= AppConfiguration.find_or_create_by(name:"Default configuration")
 
 PAYMENT_STATES = Payment.state_machine.states.keys unless defined? PAYMENT_STATES
 SHIPMENT_STATES = Shipment.state_machine.states.keys unless defined? SHIPMENT_STATES

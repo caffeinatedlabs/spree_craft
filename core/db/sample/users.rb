@@ -51,7 +51,7 @@
 #   else
 #     admin = User.create(attributes)
 #     # create an admin role and and assign the admin user to that role
-#     role = Role.find_or_create_by_name "admin"
+#     role = Role.find_or_create_by(name:"admin")
 #     admin.roles << role
 #     admin.save
 #   end

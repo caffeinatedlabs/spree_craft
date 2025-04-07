@@ -16,18 +16,18 @@ describe Admin::UsersController do
     after(:each) { user.roles = [] }
     it "should grant access to users with an admin role" do
       #user.stub :has_role? => true
-      user.roles = [Role.find_or_create_by_name('admin')]
+      user.roles = [Role.find_or_create_by(name:'admin')]
       post :index
       response.should render_template :index
     end
     it "should deny access to users with an bar role" do
-      user.roles = [Role.find_or_create_by_name('bar')]
+      user.roles = [Role.find_or_create_by(name:'bar')]
       Ability.register_ability(BarAbility)
       post :index
       response.should render_template "shared/unauthorized"
     end
     it "should deny access to users with an bar role" do
-      user.roles = [Role.find_or_create_by_name('bar')]
+      user.roles = [Role.find_or_create_by(name:'bar')]
       Ability.register_ability(BarAbility)
       post :update, {:id => '1'}
       response.should render_template "shared/unauthorized"
