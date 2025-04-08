@@ -38,7 +38,6 @@ require 'resource_controller'
 require 'active_merchant'
 require 'ransack'
 require 'jquery-rails'
-require 'ssl_requirement'
 require 'spree_core/ext/active_record'
 require 'spree_core/ext/hash'
 
