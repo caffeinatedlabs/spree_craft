@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  devise :database_authenticatable, :token_authenticatable, :registerable, :recoverable,
+  devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :encryptable, :encryptor => "authlogic_sha512"
 
   has_many :orders
