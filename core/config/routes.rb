@@ -4,19 +4,19 @@ Rails.application.routes.draw do
 
   resources :products
 
-  match '/locale/set' => 'locale#set'
+  get '/locale/set' => 'locale#set'
 
   resources :tax_categories
 
   # non-restful checkout stuff
   post '/checkout/:state' => 'checkout#update', :as => :update_checkout
-  put '/checkout/:state' => 'checkout#update', :as => :update_checkout
+  put '/checkout/:state' => 'checkout#update'
   get '/checkout/:state' => 'checkout#edit', :as => :checkout_state
-  match '/checkout' => 'checkout#edit', :state => 'address', :as => :checkout
+  get '/checkout' => 'checkout#edit', :state => 'address', :as => :checkout
 
   # non-restful admin checkout stuff
-  match '/admin/orders/:order_number/checkout' => 'admin/checkout#update', :method => :post, :as => :admin_orders_checkout
-  match '/admin/orders/:order_number/checkout/(:state)' => 'admin/checkout#edit', :method => :get, :as => :admin_orders_checkout
+  post '/admin/orders/:order_number/checkout' => 'admin/checkout#update'
+  get '/admin/orders/:order_number/checkout/(:state)' => 'admin/checkout#edit', :as => :admin_orders_checkout
 
   resources :orders, :except => :new do
     post :populate, :on => :collection
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
 
   end
-  match '/cart', :to => 'orders#edit', :via => :get, :as => :cart
+  match '/cart', :to => 'orders#edit', :via => :get
   match '/cart', :to => 'orders#update', :via => :put, :as => :update_cart
   match '/cart/empty', :to => 'orders#empty', :via => :put, :as => :empty_cart
 
@@ -44,13 +44,13 @@ Rails.application.routes.draw do
   end
 
   #   # Search routes
-  match 's/*product_group_query' => 'products#index', :as => :simple_search
-  match '/pg/:product_group_name' => 'products#index', :as => :pg_search
-  match '/t/*id/s/*product_group_query' => 'taxons#show', :as => :taxons_search
-  match 't/*id/pg/:product_group_name' => 'taxons#show', :as => :taxons_pg_search
+  get 's/*product_group_query' => 'products#index', :as => :simple_search
+  get '/pg/:product_group_name' => 'products#index', :as => :pg_search
+  get '/t/*id/s/*product_group_query' => 'taxons#show', :as => :taxons_search
+  get 't/*id/pg/:product_group_name' => 'taxons#show', :as => :taxons_pg_search
 
   #   # route globbing for pretty nested taxon and product paths
-  match '/t/*id' => 'taxons#show', :as => :nested_taxons
+  get '/t/*id' => 'taxons#show', :as => :nested_taxons
   #
   #   #moved old taxons route to after nested_taxons so nested_taxons will be default route
   #   #this route maybe removed in the near future (no longer used by core)
@@ -195,15 +195,15 @@ Rails.application.routes.draw do
 
   end
 
-  match '/admin' => 'admin/orders#index', :as => :admin
+  get '/admin' => 'admin/orders#index', :as => :admin
 
-  match '/content/cvv' => 'content#cvv'
+  get '/content/cvv' => 'content#cvv'
 
   #RAILS3 TODO - we should disable this by default
-  #match '/:controller(/:action(/:id(.:format)))'
+  #get '/:controller(/:action(/:id(.:format)))'
 
   # a catchall route for "static" content (except paths with explicit extensions: .html, .ico, etc)
   #if Spree::Config.instance && Spree::Config.get(:use_content_controller)
-    match '/*path' => 'content#show'
+    get '/*path' => 'content#show'
   #end
 end
