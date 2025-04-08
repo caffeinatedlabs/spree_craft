@@ -32,7 +32,6 @@ require 'state_machine'
 require 'paperclip'
 require 'stringex'
 require 'kaminari'
-require 'nested_set'
 require 'acts_as_list'
 require 'resource_controller'
 require 'active_merchant'
@@ -76,14 +75,6 @@ require 'generators/spree/sandbox/sandbox_generator'
 
 ActiveRecord::Base.class_eval do
   include Spree::CalculatedAdjustments
-  include CollectiveIdea::Acts::NestedSet
-end
-
-if defined?(ActionView)
-  require 'nested_set/helper'
-  ActionView::Base.class_eval do
-    include CollectiveIdea::Acts::NestedSet::Helper
-  end
 end
 
 ActiveSupport.on_load(:action_view) do
