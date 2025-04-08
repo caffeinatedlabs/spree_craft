@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   resources :tax_categories
 
   # non-restful checkout stuff
-  post '/checkout/:state' => 'checkout#update', :as => :update_checkout
-  put '/checkout/:state' => 'checkout#update'
+  match '/checkout/:state' => 'checkout#update', :as => :update_checkout, :via => [:post, :put, :patch]
   get '/checkout/:state' => 'checkout#edit', :as => :checkout_state
   get '/checkout' => 'checkout#edit', :state => 'address', :as => :checkout
 
