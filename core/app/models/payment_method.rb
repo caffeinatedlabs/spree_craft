@@ -28,7 +28,7 @@ class PaymentMethod < ActiveRecord::Base
   end
 
   def self.current
-    PaymentMethod.where(active:true, environment:Rails.env}).first
+    PaymentMethod.where(active:true, environment:Rails.env).first
   end
 
   def method_type
