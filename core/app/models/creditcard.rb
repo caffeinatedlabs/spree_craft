@@ -37,7 +37,7 @@ class Creditcard < ActiveRecord::Base
 
   # sets self.cc_type while we still have the card number
   def set_card_type
-    self.cc_type ||= CardDetector.type?(self.number)
+    self.cc_type ||= CardDetector.brand?(self.number)
   end
 
   def name?
