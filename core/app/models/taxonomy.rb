@@ -3,7 +3,7 @@ class Taxonomy < ActiveRecord::Base
   validates :name, :presence => true
 
   has_many :taxons, :dependent => :destroy
-  has_one :root, :class_name => 'Taxon', :conditions => {:parent_id => nil}
+  has_one :root, -> { where(parent_id:nil) }, :class_name => 'Taxon'
 
   after_save :set_name
 

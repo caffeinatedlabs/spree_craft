@@ -24,11 +24,11 @@ class PaymentMethod < ActiveRecord::Base
   end
 
   def self.active?
-    self.count(:conditions => {:type => self.to_s, :environment => Rails.env, :active => true}) > 0
+    self.where(type:self.to_s, environment:Rails.env, active:true).any?
   end
 
   def self.current
-    PaymentMethod.find(:first, :conditions => {:active => true, :environment => Rails.env})
+    PaymentMethod.where(active:true, environment:Rails.env}).first
   end
 
   def method_type

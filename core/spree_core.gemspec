@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'acts_as_list', '= 0.1.4'
-  s.add_dependency 'awesome_nested_set', '~> 3.1'
+  s.add_dependency 'awesome_nested_set', '~> 3.1', '< 4'
 
   s.add_dependency 'jquery-rails', '>= 1.0.14'
   s.add_dependency 'highline', '= 1.6.2'
