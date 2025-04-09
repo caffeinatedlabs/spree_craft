@@ -7,7 +7,7 @@ class LocaleController < Spree::BaseController
       session[:locale] = I18n.locale = params[:locale].to_sym
       flash.notice = t(:locale_changed)
     else
-      flash[:error] = t(:locale_not_changed)
+      flash['error'] = t(:locale_not_changed)
     end
     redirect_back_or_default(root_path(:protocol => "http"))
   end

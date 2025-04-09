@@ -58,7 +58,7 @@ class Admin::OrdersController < Admin::BaseController
             @order.create_shipment!
             return_path = edit_admin_order_shipment_path(@order, @order.shipment)
           else
-            flash[:error] = t('errors.messages.no_shipping_methods_available')
+            flash['error'] = t('errors.messages.no_shipping_methods_available')
             return_path = user_admin_order_path(@order)
           end
         else
@@ -91,10 +91,10 @@ class Admin::OrdersController < Admin::BaseController
     if @order.send("#{event}")
       flash.notice = t('order_updated')
     else
-      flash[:error] = t('cannot_perform_operation')
+      flash['error'] = t('cannot_perform_operation')
     end
   rescue Spree::GatewayError => ge
-    flash[:error] = "#{ge.message}"
+    flash['error'] = "#{ge.message}"
   ensure
     respond_to { |format| format.html { redirect_to :back } }
   end

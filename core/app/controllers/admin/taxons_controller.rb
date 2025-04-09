@@ -11,7 +11,7 @@ class Admin::TaxonsController < Admin::BaseController
         format.json {render :json => @taxon.to_json }
       end
     else
-      flash[:error] = I18n.t('errors.messages.could_not_create_taxon')
+      flash['error'] = I18n.t('errors.messages.could_not_create_taxon')
       respond_to do |format|
         format.html { redirect_to @taxonomy ? edit_admin_taxonomy_url(@taxonomy) : admin_taxonomies_url }
       end
@@ -74,7 +74,7 @@ class Admin::TaxonsController < Admin::BaseController
     @update_children = true if params[:taxon][:name] != @taxon.name || params[:taxon][:permalink] != @taxon.permalink
 
     if @taxon.update_attributes(params[:taxon])
-      flash[:notice] = flash_message_for(@taxon, :successfully_updated)
+      flash['notice'] = flash_message_for(@taxon, :successfully_updated)
     end
 
     #rename child taxons

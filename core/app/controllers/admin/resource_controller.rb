@@ -25,7 +25,7 @@ class Admin::ResourceController < Admin::BaseController
     invoke_callbacks(:update, :before)
     if @object.update_attributes(params[object_name])
       invoke_callbacks(:update, :after)
-      flash[:notice] = flash_message_for(@object, :successfully_updated)
+      flash['notice'] = flash_message_for(@object, :successfully_updated)
       respond_to do |format|
         format.html { redirect_to location_after_save }
         format.js   { render :layout => false }
@@ -39,7 +39,7 @@ class Admin::ResourceController < Admin::BaseController
     invoke_callbacks(:create, :before)
     if @object.save
       invoke_callbacks(:create, :after)
-      flash[:notice] = flash_message_for(@object, :successfully_created)
+      flash['notice'] = flash_message_for(@object, :successfully_created)
       respond_to do |format|
         format.html { redirect_to location_after_save }
         format.js   { render :layout => false }
@@ -54,7 +54,7 @@ class Admin::ResourceController < Admin::BaseController
     invoke_callbacks(:destroy, :before)
     if @object.destroy
       invoke_callbacks(:destroy, :after)
-      flash[:notice] = flash_message_for(@object, :successfully_removed)
+      flash['notice'] = flash_message_for(@object, :successfully_removed)
       respond_to do |format|
         format.html { redirect_to collection_url }
         format.js   { render :partial => "/admin/shared/destroy" }

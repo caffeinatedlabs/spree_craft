@@ -27,7 +27,7 @@ class Admin::PaymentsController < Admin::BaseController
 
       if @order.completed?
         @payment.process!
-        flash[:notice] = flash_message_for(@payment, :successfully_created)
+        flash['notice'] = flash_message_for(@payment, :successfully_created)
 
         respond_to { |format| format.html { redirect_to admin_order_payments_path(@order) } }
       else
@@ -40,7 +40,7 @@ class Admin::PaymentsController < Admin::BaseController
       end
 
     rescue Spree::GatewayError => e
-      flash[:error] = "#{e.message}"
+      flash['error'] = "#{e.message}"
       
       respond_to { |format| format.html { redirect_to new_admin_payment_path(@order) } }
     end
@@ -52,10 +52,10 @@ class Admin::PaymentsController < Admin::BaseController
     if @payment.payment_source.send("#{event}", @payment)
       flash.notice = t('payment_updated')
     else
-      flash[:error] = t('cannot_perform_operation')
+      flash['error'] = t('cannot_perform_operation')
     end
   rescue Spree::GatewayError => ge
-    flash[:error] = "#{ge.message}"
+    flash['error'] = "#{ge.message}"
   ensure
     respond_to { |format| format.html { redirect_to admin_order_payments_path(@order) } }
   end

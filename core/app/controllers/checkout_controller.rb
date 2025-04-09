@@ -17,14 +17,14 @@ class CheckoutController < Spree::BaseController
       if @order.next
         state_callback(:after)
       else
-        flash[:error] = I18n.t(:payment_processing_failed)
+        flash['error'] = I18n.t(:payment_processing_failed)
         respond_to { |format| format.html { render :edit, :location => checkout_state_path(@order.state) } }
         return
       end
 
       if @order.state == "complete" || @order.completed?
-        flash[:notice] = I18n.t(:order_processed_successfully)
-        flash[:commerce_tracking] = "nothing special"
+        flash['notice'] = I18n.t(:order_processed_successfully)
+        flash['commerce_tracking'] = "nothing special"
         respond_to { |format| format.html { render :edit, :location => completion_route } }
       else
         respond_to { |format| format.html { render :edit, :location => checkout_state_path(@order.state) } }
@@ -64,7 +64,7 @@ class CheckoutController < Spree::BaseController
   end
 
   def raise_insufficient_quantity
-    flash[:error] = t('spree_inventory_error_flash_for_insufficient_quantity')
+    flash['error'] = t('spree_inventory_error_flash_for_insufficient_quantity')
     redirect_to cart_path
   end
 
@@ -92,7 +92,7 @@ class CheckoutController < Spree::BaseController
   end
 
   def rescue_from_spree_gateway_error
-    flash[:error] = t('spree_gateway_error_flash_for_checkout')
+    flash['error'] = t('spree_gateway_error_flash_for_checkout')
     render :edit
   end
 

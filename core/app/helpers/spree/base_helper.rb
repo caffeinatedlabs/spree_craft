@@ -101,7 +101,7 @@ module Spree::BaseHelper
   end
 
   def flash_messages
-    [:notice, :error].map do |msg_type|
+    %w{notice error}.map do |msg_type|
       if flash[msg_type]
         content_tag :div, flash[msg_type], :class => "flash #{msg_type}"
       else

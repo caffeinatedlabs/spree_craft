@@ -32,7 +32,7 @@ class UsersController < Spree::BaseController
       flash.notice = I18n.t("account_updated")
       redirect_to account_url
     else
-      flash[:error] = @user.errors.full_messages
+      flash['error'] = @user.errors.full_messages
       render 'edit'
     end
 
