@@ -1,5 +1,5 @@
 class Tracker < ActiveRecord::Base
   def self.current
-    Tracker.find(:first, :conditions => {:active => true, :environment => Rails.env})
+    Tracker.where(active:true, environment:Rails.env).first
   end
 end

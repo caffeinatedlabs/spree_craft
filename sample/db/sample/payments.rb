@@ -1,5 +1,5 @@
 # create payments based on the totals since they can't be known in YAML (quantities are random)
-method = PaymentMethod.find(:first, :conditions => {:name => "Credit Card", :active => true})
+method = PaymentMethod.where(:name => "Credit Card", :active => true).first
 
 # Hack the current method so we're able to return a gateway without a RAILS_ENV
 Gateway.class_eval do

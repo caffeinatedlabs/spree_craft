@@ -72,7 +72,7 @@ class Gateway::Bogus < Gateway
     prefix = success ? "BGS" : "FAIL"
     while record
       random = "#{prefix}-#{Array.new(6){rand(6)}.join}"
-      record = Creditcard.find(:first, :conditions => ["gateway_customer_profile_id = ?", random])
+      record = Creditcard.where(gateway_customer_profile_id:random).first
     end
     random
   end

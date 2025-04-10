@@ -90,7 +90,7 @@ class Shipment < ActiveRecord::Base
     record = true
     while record
       random = "H" + Array.new(11){rand(9)}.join
-      record = Shipment.find(:first, :conditions => ["number = ?", random])
+      record = Shipment.where(number:random).first
     end
     self.number = random
   end

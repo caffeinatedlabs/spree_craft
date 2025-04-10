@@ -247,9 +247,7 @@ SQL
       when ActiveRecord::Base then t
       when String
         Taxon.find_by_name(t) ||
-        Taxon.find(:first, :conditions => [
-          "taxons.permalink LIKE ? OR taxons.permalink = ?", "%/#{t}/", "#{t}/"
-        ])
+          Taxon.where("taxons.permalink LIKE ? OR taxons.permalink = ?", "%/#{t}/", "#{t}/").first
       end
     }.compact.uniq
   end

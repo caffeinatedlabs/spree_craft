@@ -194,8 +194,6 @@ Rails.application.routes.draw do
 
   end
 
-  get '/admin' => 'admin/orders#index', :as => :admin
-
   get '/content/cvv' => 'content#cvv'
 
   #RAILS3 TODO - we should disable this by default

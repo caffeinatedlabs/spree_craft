@@ -187,7 +187,7 @@ class Order < ActiveRecord::Base
     record = true
     while record
       random = "R#{Array.new(9){rand(9)}.join}"
-      record = self.class.find(:first, :conditions => ["number = ?", random])
+      record = self.class.where(number:random).first
     end
     self.number = random if self.number.blank?
     self.number

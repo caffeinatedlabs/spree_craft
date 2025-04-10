@@ -80,7 +80,7 @@ module Spree
         #
         # Example:
         #
-        #   user = User.find(:first)
+        #   user = User.first
         #   user.prefers_notifications?         # => false
         #   user.prefers_color?                 # => true
         #   user.preferred_color                # => 'red'
@@ -88,7 +88,7 @@ module Spree
         #
         #   user.prefers_notifications = true
         #
-        #   car = Car.find(:first)
+        #   car = Car.first
         #   user.preferred_color = 'red', car   # => 'red'
         #   user.preferred_color(car)           # => 'red'
         #   user.prefers_color?(car)            # => true
@@ -157,7 +157,7 @@ module Spree
         # == Examples
         #
         # A user with no stored values:
-        #   user = User.find(:first)
+        #   user = User.first
         #   user.preferences
         #   => {"language"=>"English", "color"=>nil}
         #
@@ -204,12 +204,12 @@ module Spree
         #
         # == Examples
         #
-        #   user = User.find(:first)
+        #   user = User.first
         #   user.prefers?(:notifications)             # => true
         #
         #   user.prefers(:notifications, 'error')     # => true
         #
-        #   newsgroup = Newsgroup.find(:first)
+        #   newsgroup = Newsgroup.first
         #   user.prefers?(:notifications, newsgroup)  # => false
         def prefers?(name, group = nil)
           name = name.to_s
@@ -222,12 +222,12 @@ module Spree
         #
         # == Examples
         #
-        #   user = User.find(:first)
+        #   user = User.first
         #   user.preferred(:color)          # => 'red'
         #
         #   user.preferred(:color, 'cars')  # => 'blue'
         #
-        #   car = Car.find(:first)
+        #   car = Car.first
         #   user.preferred(:color, car)     # => 'black'
         def preferred(name, group = nil)
           name = name.to_s
@@ -236,7 +236,7 @@ module Spree
             value = @preference_values[name][group]
           else
             group_id, group_type = Preference.split_group(group)
-            preference = stored_preferences.find(:first, :conditions => {:name => name, :group_id => group_id, :group_type => group_type})
+            preference = stored_preferences.where(name:name, group_id:group_id, group_type:group_type).first
             value = preference ? preference.value : preference_definitions[name].default_value
           end
 
@@ -248,11 +248,11 @@ module Spree
         #
         # == Examples
         #
-        #   user = User.find(:first)
+        #   user = User.first
         #   user.set_preference(:notifications, false) # => false
         #   user.save!
         #
-        #   newsgroup = Newsgroup.find(:first)
+        #   newsgroup = Newsgroup.first
         #   user.set_preference(:notifications, true, newsgroup)  # => true
         #   user.save!
         def set_preference(name, value, group = nil)
@@ -277,7 +277,7 @@ module Spree
                 attributes = {:name => name, :group_id => group_id, :group_type => group_type}
 
                 # Find an existing preference or build a new one
-                preference = stored_preferences.find(:first, :conditions => attributes)
+                preference = stored_preferences.where(attributes).first
                 if preference.nil?
                   attribute = attributes.delete(:attribute)
                   preference = stored_preferences.build(attributes)
