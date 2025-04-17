@@ -114,7 +114,7 @@ class Admin::OrdersController < Admin::BaseController
   private
 
   def load_order
-    @order ||= Order.find_by_number(params[:id], :include => :adjustments) if params[:id]
+    @order ||= Order.find_by_number(params[:id]) if params[:id]
     @order
   end
 
