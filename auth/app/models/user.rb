@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
   end
 
   def send_reset_password_instructions
-    generate_reset_password_token!
-    UserMailer.reset_password_instructions(self).deliver
+    set_reset_password_token
+    UserMailer.reset_password_instructions(self).deliver_now
   end
 
   protected
