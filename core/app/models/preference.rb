@@ -48,8 +48,8 @@ class Preference < ActiveRecord::Base
   end
   # Removed from Rails 5.1
   # alias_method_chain :group, :optional_lookup
-  alias_method :group_without_optional_lookup, :optional_lookup
-  alias_method :optional_lookup, :group_with_optional_lookup
+  alias_method :group_without_optional_lookup, :group
+  alias_method :group, :group_with_optional_lookup
 end
 
 
