@@ -22,7 +22,6 @@ class Admin::GeneralSettingsController < Admin::BaseController
     if request.xhr? and params[:alert_id]
       dismissed = Spree::Config[:dismissed_spree_alerts] || ''
       Spree::Config.set :dismissed_spree_alerts => dismissed.split(',').push(params[:alert_id]).join(',')
-      filter_dismissed_alerts
       render :nothing => true
     end
   end
