@@ -46,7 +46,10 @@ class Preference < ActiveRecord::Base
   def group_with_optional_lookup
     group_id ? group_without_optional_lookup : group_type
   end
-  alias_method_chain :group, :optional_lookup
+  # Removed from Rails 5.1
+  # alias_method_chain :group, :optional_lookup
+  alias_method :group_without_optional_lookup, :optional_lookup
+  alias_method :optional_lookup, :group_with_optional_lookup
 end
 
 
