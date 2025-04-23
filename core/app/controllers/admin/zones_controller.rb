@@ -1,5 +1,5 @@
 class Admin::ZonesController < Admin::ResourceController
-  before_filter :load_data, :except => [:index]
+  before_action :load_data, :except => [:index]
 
   def new
     @zone.zone_members.build

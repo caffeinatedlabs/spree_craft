@@ -1,6 +1,6 @@
 class Admin::StatesController < Admin::ResourceController
   belongs_to :country
-  before_filter :load_data
+  before_action :load_data
 
   def index
     respond_to do |format|

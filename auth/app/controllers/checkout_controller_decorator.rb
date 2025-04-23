@@ -1,6 +1,6 @@
 CheckoutController.class_eval do
-  before_filter :check_authorization
-  before_filter :check_registration, :except => [:registration, :update_registration]
+  before_action :check_authorization
+  before_action :check_registration, :except => [:registration, :update_registration]
 
   helper :users
 

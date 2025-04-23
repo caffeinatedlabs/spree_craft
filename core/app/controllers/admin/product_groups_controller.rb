@@ -1,5 +1,5 @@
 class Admin::ProductGroupsController < Admin::ResourceController
-  before_filter :patch_params, :only => [:update]
+  before_action :patch_params, :only => [:update]
   
   def preview
     @product_group = ProductGroup.new(params[:product_group])

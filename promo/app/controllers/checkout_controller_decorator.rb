@@ -1,5 +1,5 @@
 CheckoutController.class_eval do
-  before_filter :apply_pending_promotions
+  before_action :apply_pending_promotions
 
   def apply_pending_promotions
     # apply all promotions that may have been triggered before theorder had been created

@@ -1,8 +1,8 @@
 class Admin::OrdersController < Admin::BaseController
   require 'spree/gateway_error'
-  before_filter :initialize_txn_partials
-  before_filter :initialize_order_events
-  before_filter :load_order, :only => [:fire, :resend, :history, :user]
+  before_action :initialize_txn_partials
+  before_action :initialize_order_events
+  before_action :load_order, :only => [:fire, :resend, :history, :user]
 
   def index
     params[:search] ||= {}

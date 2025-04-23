@@ -1,6 +1,6 @@
 Spree::BaseController.class_eval do
 
-  before_filter :set_current_user
+  before_action :set_current_user
 
   # graceful error handling for cancan authorization exceptions
   rescue_from CanCan::AccessDenied do |exception|

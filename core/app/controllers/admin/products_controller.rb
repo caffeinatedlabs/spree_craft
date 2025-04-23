@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::ResourceController
-  before_filter :check_json_authenticity, :only => :index
-  before_filter :load_data, :except => :index
+  before_action :check_json_authenticity, :only => :index
+  before_action :load_data, :except => :index
   update.before :update_before
 
   def index

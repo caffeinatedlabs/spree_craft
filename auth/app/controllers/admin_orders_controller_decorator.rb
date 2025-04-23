@@ -1,5 +1,5 @@
 Admin::OrdersController.class_eval do
-  before_filter :check_authorization
+  before_action :check_authorization
 
   private
 

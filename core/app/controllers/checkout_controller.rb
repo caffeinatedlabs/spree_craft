@@ -2,7 +2,7 @@
 # Checkout object.  There's enough distinct logic specific to checkout which has nothing to do with updating an
 # order that this approach is waranted.
 class CheckoutController < Spree::BaseController
-  before_filter :load_order
+  before_action :load_order
   rescue_from Spree::GatewayError, :with => :rescue_from_spree_gateway_error
 
   # Updates the order and advances to the next state (when possible.)

@@ -1,5 +1,5 @@
 class Admin::ReportsController < Admin::BaseController
-  before_filter :load_data
+  before_action :load_data
   respond_to :html
 
   AVAILABLE_REPORTS = {

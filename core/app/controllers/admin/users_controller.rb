@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::ResourceController
   # http://spreecommerce.com/blog/2010/11/02/json-hijacking-vulnerability/
-  before_filter :check_json_authenticity, :only => :index
-  before_filter :load_roles, :only => [:edit, :new, :update, :create]
+  before_action :check_json_authenticity, :only => :index
+  before_action :load_roles, :only => [:edit, :new, :update, :create]
 
   create.after :save_user_roles
   update.before :save_user_roles

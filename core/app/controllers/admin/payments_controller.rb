@@ -1,7 +1,7 @@
 class Admin::PaymentsController < Admin::BaseController
-  before_filter :load_order, :only => [:create, :new, :index, :fire]
-  before_filter :load_payment, :except => [:create, :new, :index]
-  before_filter :load_data
+  before_action :load_order, :only => [:create, :new, :index, :fire]
+  before_action :load_payment, :except => [:create, :new, :index]
+  before_action :load_data
 
   respond_to :html
 

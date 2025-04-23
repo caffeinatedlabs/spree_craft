@@ -1,5 +1,5 @@
 class Admin::OptionTypesController < Admin::ResourceController
-  before_filter :load_product, :only => [:selected, :available, :remove]
+  before_action :load_product, :only => [:selected, :available, :remove]
 
   def available
     set_available_option_types

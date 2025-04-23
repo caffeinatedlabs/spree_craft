@@ -1,6 +1,6 @@
 class Admin::PaymentMethodsController < Admin::ResourceController
-  skip_before_filter :load_resource, :only => [:create]
-  before_filter :load_data
+  skip_before_action :load_resource, :only => [:create]
+  before_action :load_data
 
   def create
     @payment_method = params[:payment_method][:type].constantize.new(params[:payment_method])

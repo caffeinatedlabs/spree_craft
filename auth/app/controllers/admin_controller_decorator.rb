@@ -1,5 +1,5 @@
 Admin::BaseController.class_eval do
-  before_filter :authorize_admin
+  before_action :authorize_admin
 
   def authorize_admin
     begin

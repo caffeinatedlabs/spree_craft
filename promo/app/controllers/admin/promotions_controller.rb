@@ -1,5 +1,5 @@
 class Admin::PromotionsController < Admin::ResourceController
-  before_filter :load_data
+  before_action :load_data
 
   protected
 

@@ -1,6 +1,6 @@
 class Admin::ProductPropertiesController < Admin::ResourceController
   belongs_to :product, :find_by => :permalink
-  before_filter :find_properties
+  before_action :find_properties
 
   private
 

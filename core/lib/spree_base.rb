@@ -110,10 +110,10 @@ module SpreeBase
     receiver.send :include, InstanceMethods
     receiver.send :layout, 'spree_application'
     receiver.send :helper, 'hook'
-    receiver.send :before_filter, 'instantiate_controller_and_action_names'
+    receiver.send :before_action, 'instantiate_controller_and_action_names'
     #  #RAILS 3 TODO
-    #  #before_filter :touch_sti_subclasses
-    receiver.send :before_filter, 'set_user_language'
+    #  #before_action :touch_sti_subclasses
+    receiver.send :before_action, 'set_user_language'
 
     receiver.send :helper_method, 'title'
     receiver.send :helper_method, 'title='

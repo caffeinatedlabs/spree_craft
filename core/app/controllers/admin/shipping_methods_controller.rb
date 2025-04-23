@@ -1,5 +1,5 @@
 class Admin::ShippingMethodsController < Admin::ResourceController
-  before_filter :load_data, :except => [:index]
+  before_action :load_data, :except => [:index]
 
   private
   
