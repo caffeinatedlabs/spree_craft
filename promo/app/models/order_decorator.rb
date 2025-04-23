@@ -15,7 +15,10 @@ Order.class_eval do
       most_valuable_adjustment = adjustments.promotion.eligible.max{|a,b| a.amount.abs <=> b.amount.abs}
       ( adjustments.promotion.eligible - [most_valuable_adjustment] ).each{|adjustment| adjustment.update_attribute_without_callbacks(:eligible, false)}
     end
-    alias_method_chain :update_adjustments, :promotion_limiting
+    # Update below for Rails 5.1
+    # alias_method_chain :update_adjustments, :promotion_limiting
+    alias_method :update_adjustments_without_promotion_limiting, :update_adjustments
+    alias_method :update_adjustments, :update_adjustments_with_promotion_limiting
   end
 
 end
