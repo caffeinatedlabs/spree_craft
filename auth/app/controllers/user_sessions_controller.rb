@@ -4,7 +4,7 @@ class UserSessionsController < Devise::SessionsController
 
   include Spree::CurrentOrder
 
-  after_filter :associate_user, :only => :create
+  after_action :associate_user, :only => :create
 
   # GET /resource/sign_in
   def new

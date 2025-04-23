@@ -2,7 +2,7 @@ class UserRegistrationsController < Devise::RegistrationsController
   include SpreeBase
   helper :users, 'spree/base'
 
-  after_filter :associate_user, :only => :create
+  after_action :associate_user, :only => :create
   before_action :check_permissions, :only => [:edit, :update]
   skip_before_action :require_no_authentication
 

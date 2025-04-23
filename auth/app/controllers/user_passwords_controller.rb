@@ -2,7 +2,7 @@ class UserPasswordsController < Devise::PasswordsController
   include SpreeBase
   helper :users, 'spree/base'
   
-  after_filter :associate_user, :only => :update
+  after_action :associate_user, :only => :update
 
   def new
     super

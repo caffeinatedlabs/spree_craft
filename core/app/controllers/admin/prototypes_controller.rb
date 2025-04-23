@@ -1,5 +1,5 @@
 class Admin::PrototypesController < Admin::ResourceController
-  after_filter :set_habtm_associations, :only => [:create, :update]
+  after_action :set_habtm_associations, :only => [:create, :update]
 
   helper 'admin/product_properties'
 

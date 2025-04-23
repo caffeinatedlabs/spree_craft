@@ -1,5 +1,5 @@
 class Admin::MailMethodsController < Admin::ResourceController
-  after_filter :initialize_mail_settings
+  after_action :initialize_mail_settings
 
   def testmail
     @mail_method = MailMethod.find(params[:id])
