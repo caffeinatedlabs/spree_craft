@@ -1,6 +1,4 @@
 class Admin::TaxonsController < Admin::BaseController
-  include Railslove::Plugins::FindByParam::SingletonMethods
-
   respond_to :html, :json, :js
 
   def create
