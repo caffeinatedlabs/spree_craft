@@ -108,19 +108,19 @@ module SpreeBase
   def self.included(receiver)
     #receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods
-    receiver.send :layout, 'spree_application'
-    receiver.send :helper, 'hook'
-    receiver.send :before_action, 'instantiate_controller_and_action_names'
+    receiver.send :layout, :spree_application
+    receiver.send :helper, :hook
+    receiver.send :before_action, :instantiate_controller_and_action_names
     #  #RAILS 3 TODO
     #  #before_action :touch_sti_subclasses
-    receiver.send :before_action, 'set_user_language'
+    receiver.send :before_action, :set_user_language
 
-    receiver.send :helper_method, 'title'
-    receiver.send :helper_method, 'title='
-    receiver.send :helper_method, 'accurate_title'
-    receiver.send :helper_method, 'get_taxonomies'
-    receiver.send :helper_method, 'current_gateway'
-    receiver.send :helper_method, 'current_order'
+    receiver.send :helper_method, :title
+    receiver.send :helper_method, :title=
+    receiver.send :helper_method, :accurate_title
+    receiver.send :helper_method, :get_taxonomies
+    receiver.send :helper_method, :current_gateway
+    receiver.send :helper_method, :current_order
     receiver.send :include, Spree::CurrentOrder
   end
 end
