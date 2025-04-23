@@ -108,7 +108,7 @@ module SpreeBase
   def self.included(receiver)
     #receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods
-    receiver.send :layout, :spree_application
+    receiver.send :layout, 'spree_application'
     receiver.send :helper, :hook
     receiver.send :before_action, :instantiate_controller_and_action_names
     #  #RAILS 3 TODO
