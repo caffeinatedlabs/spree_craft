@@ -129,7 +129,7 @@ class Order < ActiveRecord::Base
 
   end
 
-  before_validation :clone_billing_address, :if => "@use_billing"
+  before_validation :clone_billing_address, :if => -> { @use_billing }
   attr_accessor :use_billing
 
   def clone_billing_address
