@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   belongs_to :ship_address, :foreign_key => "ship_address_id", :class_name => "Address"
   belongs_to :bill_address, :foreign_key => "bill_address_id", :class_name => "Address"
 
-  before_save :check_admin
+  # before_save :check_admin
   before_validation :set_login
 
   # Setup accessible (or protected) attributes for your model
