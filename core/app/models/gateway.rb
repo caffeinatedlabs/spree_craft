@@ -1,6 +1,6 @@
 class Gateway < PaymentMethod
   belongs_to :provider
-  delegates :authorize, :purchase, :capture, :void, :credit, :to => :provider
+  delegate :authorize, :purchase, :capture, :void, :credit, :to => :provider
 
   validates :name, :type, :presence => true
 
