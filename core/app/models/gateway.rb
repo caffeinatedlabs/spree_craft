@@ -1,7 +1,8 @@
 class Gateway < PaymentMethod
-	delegate_belongs_to :provider, :authorize, :purchase, :capture, :void, :credit
+  belongs_to :provider
+  delegates :authorize, :purchase, :capture, :void, :credit, :to => :provider
 
-	validates :name, :type, :presence => true
+  validates :name, :type, :presence => true
 
   preference :server, :string, :default => 'test'
   preference :test_mode, :boolean, :default => true

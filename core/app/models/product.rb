@@ -32,8 +32,7 @@ class Product < ActiveRecord::Base
 
   has_one :master, -> { where("variants.is_master = ? AND variants.deleted_at IS NULL", true) }, class_name: 'Variant'
 
-  delegate_belongs_to :master, :sku, :price, :weight, :height, :width, :depth, :is_master
-  delegate_belongs_to :master, :cost_price if Variant.table_exists? && Variant.column_names.include?("cost_price")
+  delegate :sku, :price, :weight, :height, :width, :depth, :is_master, :cost_price, :to => :master
 
   after_create :set_master_variant_defaults
   after_create :add_properties_and_option_types_from_prototype
