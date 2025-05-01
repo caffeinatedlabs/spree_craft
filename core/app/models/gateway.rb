@@ -1,6 +1,9 @@
 class Gateway < PaymentMethod
   belongs_to :provider
-  delegate :authorize, :purchase, :capture, :void, :credit, :to => :provider
+  %w{authorize purchase capture void credit}.each do |attr|
+    delegate attr, :to => :provider
+    delegate "#{attr}=", :to => :provider
+  end
 
   validates :name, :type, :presence => true
 

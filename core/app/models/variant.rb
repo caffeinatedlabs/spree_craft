@@ -1,6 +1,10 @@
 class Variant < ActiveRecord::Base
   belongs_to :product
-  delegate :name, :description, :permalink, :available_on, :tax_category_id, :shipping_category_id, :meta_description, :meta_keywords, :to => :product
+  %w{name description permalink available_on tax_category_id shipping_category_id meta_description meta_keywords}.each do |attr|
+     delegate attr, :to => :product
+     delegate "#{attr}=", :to => :product
+   end
+
 
   attr_accessible :count_on_hand
   
