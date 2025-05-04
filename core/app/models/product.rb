@@ -33,8 +33,8 @@ class Product < ActiveRecord::Base
   has_one :master, -> { where("variants.is_master = ? AND variants.deleted_at IS NULL", true) }, class_name: 'Variant'
 
   %w{sku price weight height width depth is_master cost_price}.each do |attr|
-    delegate attr, :to => :master
-    delegate "#{attr}=", :to => :master
+    delegate attr, :to => :master, allow_nil:true
+    delegate "#{attr}=", :to => :master, allow_nil:true
   end
 
   after_create :set_master_variant_defaults

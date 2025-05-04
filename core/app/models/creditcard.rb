@@ -22,8 +22,10 @@ class Creditcard < ActiveRecord::Base
   end
 
   def set_last_digits
-    number.to_s.gsub!(/\s/,'') unless number.nil?
-    verification_value.to_s.gsub!(/\s/,'') unless number.nil?
+    if !number.nil?
+      number = number.to_s.gsub(/\s/,'')
+      verification_value = verification_value.to_s.gsub(/\s/,'')
+    end
     self.last_digits ||= number.to_s.length <= 4 ? number : number.to_s.slice(-4..-1)
   end
 

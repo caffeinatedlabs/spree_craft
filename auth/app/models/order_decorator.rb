@@ -7,6 +7,6 @@ Order.class_eval do
     self.user = user
     self.email = user.email
     # disable validations since this can cause issues when associating an incomplete address during the address step
-    save(:validate => false)
+    save(validate:false)
   end
 end
