@@ -41,7 +41,7 @@ class Product < ActiveRecord::Base
   after_create :add_properties_and_option_types_from_prototype
   before_save :recalculate_count_on_hand
   before_update :sanitize_permalink
-  after_save :update_memberships if ProductGroup.table_exists?
+  after_save :update_memberships if ActiveRecord::Base.connected? && ProductGroup.table_exists?
   after_save :set_master_on_hand_to_zero_when_product_has_variants
   after_save :save_master
 
@@ -98,7 +98,7 @@ class Product < ActiveRecord::Base
     joins(:taxons).where(Taxon.arel_table[:name].eq(name))
   end
 
-  if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
+  if (ActiveRecord::Base.connected? && ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
     if Product.table_exists?
       scope :group_by_products_id, -> { group(Product.column_names.map{ |col_name| "#{Product.table_name}.#{col_name}" }) }
     end
