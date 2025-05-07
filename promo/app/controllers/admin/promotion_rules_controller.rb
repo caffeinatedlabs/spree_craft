@@ -1,7 +1,7 @@
 class Admin::PromotionRulesController < Admin::BaseController
   def create
     @promotion = Promotion.find(params[:promotion_id])
-    @promotion_rule = params[:promotion_rule][:type].constantize.new(params[:promotion_rule])
+    @promotion_rule = params[:promotion_rule][:type].constantize.new(params[:promotion_rule].to_unsafe_hash)
     @promotion_rule.promotion = @promotion
     if @promotion_rule.save
       flash['notice'] = I18n.t(:successfully_created, :resource => I18n.t(:promotion_rule))
