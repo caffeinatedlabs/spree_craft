@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   def send_reset_password_instructions
     set_reset_password_token
-    UserMailer.reset_password_instructions(self).deliver_now
+    UserMailer.reset_password_instructions(self.id).deliver_now
   end
 
   protected
