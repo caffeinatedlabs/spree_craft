@@ -2,7 +2,9 @@ class Admin::PromotionActionsController < Admin::BaseController
   def create
     @calculators = Promotion::Actions::CreateAdjustment.calculators
     @promotion = Promotion.find(params[:promotion_id])
-    @promotion_action = params[:promotion_action][:type].constantize.new(params[:promotion_action])
+    promotion_action_class = params[:promotion_action][:type]
+    raise "Unexpected promotion action class: '#{promotion_action_class}'" if !promotion_action_class.starts_with?('Promotion::Actions::')
+    @promotion_action = promotion_action_class.constantize.new(params[:promotion_action].to_unsafe_hash)
     @promotion_action.promotion = @promotion
     if @promotion_action.save
       flash['notice'] = I18n.t(:successfully_created, :resource => I18n.t(:promotion_action))
